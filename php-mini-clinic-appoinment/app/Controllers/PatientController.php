@@ -41,6 +41,7 @@ class PatientController
 
     public function store(): void
     {
+        verify_csrf();
         $data = $this->validate($_POST);
         $errors = $data['errors'];
         $old = $data['values'];
@@ -58,7 +59,7 @@ class PatientController
             $errors['email'] = 'Email nay da ton tai trong he thong.';
             view('patients/create', compact('errors', 'old'));
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            log_error('Patient error', $e);
             http_response_code(500);
             view('errors/500');
         }
@@ -82,6 +83,7 @@ class PatientController
 
     public function update(): void
     {
+        verify_csrf();
         $id = (int) ($_POST['id'] ?? 0);
         $data = $this->validate($_POST);
         $errors = $data['errors'];
@@ -101,7 +103,7 @@ class PatientController
             $errors['email'] = 'Email nay da ton tai trong he thong.';
             view('patients/edit', compact('errors', 'old'));
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            log_error('Patient error', $e);
             http_response_code(500);
             view('errors/500');
         }
@@ -109,6 +111,7 @@ class PatientController
 
     public function delete(): void
     {
+        verify_csrf();
         $id = (int) ($_POST['id'] ?? 0);
 
         if ($id <= 0) {
@@ -120,7 +123,7 @@ class PatientController
             $this->repository()->delete($id);
             flash_set('success', 'Benh nhan da duoc xoa thanh cong.');
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            log_error('Patient error', $e);
             flash_set('error', 'Co loi xay ra khi xoa benh nhan.');
         }
         redirect('/patients');

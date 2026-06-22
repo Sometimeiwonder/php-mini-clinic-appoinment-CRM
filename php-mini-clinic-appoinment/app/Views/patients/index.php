@@ -10,15 +10,28 @@
     <button type="submit">Search</button>
 </form>
 
+<?php
+function patient_sort_link($label, $col, $currentSort, $currentDir, $q) {
+    $newDir = ($currentSort === $col && $currentDir === 'asc') ? 'desc' : 'asc';
+    $arrow = '';
+    if ($currentSort === $col) {
+        $arrow = $currentDir === 'asc' ? ' &#9650;' : ' &#9660;';
+    }
+    $params = ['sort' => $col, 'direction' => $newDir, 'page' => 1];
+    if ($q !== '') $params['q'] = $q;
+    return '<a href="/patients?' . e(query_string($params)) . '">' . $label . $arrow . '</a>';
+}
+?>
+
 <table>
 <thead>
 <tr>
     <th>ID</th>
-    <th><a href="/patients?<?= e(query_string(['sort' => 'name'])) ?>">Name</a></th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Gender</th>
-    <th><a href="/patients?<?= e(query_string(['sort' => 'created_at'])) ?>">Created at</a></th>
+    <th><?= patient_sort_link('Name', 'name', $sort, $direction, $q) ?></th>
+    <th><?= patient_sort_link('Email', 'email', $sort, $direction, $q) ?></th>
+    <th><?= patient_sort_link('Phone', 'phone', $sort, $direction, $q) ?></th>
+    <th><?= patient_sort_link('Gender', 'gender', $sort, $direction, $q) ?></th>
+    <th><?= patient_sort_link('Created at', 'created_at', $sort, $direction, $q) ?></th>
     <th>Actions</th>
 </tr>
 </thead>
@@ -34,6 +47,7 @@
     <td>
         <a href="/patients/edit?id=<?= e($patient['id']) ?>">Edit</a>
         <form method="post" action="/patients/delete" class="inline" onsubmit="return confirm('Delete this patient?')">
+            <?= csrf_field() ?>
             <input type="hidden" name="id" value="<?= e($patient['id']) ?>">
             <button type="submit" class="link danger">Delete</button>
         </form>

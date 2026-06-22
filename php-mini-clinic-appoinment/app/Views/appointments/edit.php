@@ -2,6 +2,7 @@
 <h1>Edit Appointment</h1>
 
 <form method="post" action="/appointments/update" class="card form-card">
+    <?= csrf_field() ?>
     <input type="hidden" name="id" value="<?= e($old['id'] ?? '') ?>">
 
     <label>Appointment Code</label>

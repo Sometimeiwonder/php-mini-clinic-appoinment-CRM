@@ -2,6 +2,7 @@
 <h1>Create Appointment</h1>
 
 <form method="post" action="/appointments/store" class="card form-card">
+    <?= csrf_field() ?>
     <label>Appointment Code</label>
     <input type="text" name="appointment_code" value="<?= e($old['appointment_code'] ?? '') ?>">
     <?php if (!empty($errors['appointment_code'])): ?><p class="error"><?= e($errors['appointment_code']) ?></p><?php endif; ?>

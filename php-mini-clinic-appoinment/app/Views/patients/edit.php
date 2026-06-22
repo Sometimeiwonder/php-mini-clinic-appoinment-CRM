@@ -2,6 +2,7 @@
 <h1>Edit Patient</h1>
 
 <form method="post" action="/patients/update" class="card form-card">
+    <?= csrf_field() ?>
     <input type="hidden" name="id" value="<?= e($old['id'] ?? '') ?>">
 
     <label>Name</label>

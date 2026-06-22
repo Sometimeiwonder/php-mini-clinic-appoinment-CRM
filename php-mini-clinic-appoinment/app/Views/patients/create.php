@@ -2,6 +2,7 @@
 <h1>Create Patient</h1>
 
 <form method="post" action="/patients/store" class="card form-card">
+    <?= csrf_field() ?>
     <label>Name</label>
     <input type="text" name="name" value="<?= e($old['name'] ?? '') ?>">
     <?php if (!empty($errors['name'])): ?><p class="error"><?= e($errors['name']) ?></p><?php endif; ?>

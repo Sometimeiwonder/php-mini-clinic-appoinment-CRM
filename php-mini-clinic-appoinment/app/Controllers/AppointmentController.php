@@ -12,14 +12,20 @@ class AppointmentController
     public function index(): void
     {
         $q = trim($_GET['q'] ?? '');
+        $status = trim($_GET['status'] ?? '');
         $page = max(1, (int) ($_GET['page'] ?? 1));
         $perPage = 10;
         $sort = $_GET['sort'] ?? 'created_at';
         $direction = $_GET['direction'] ?? 'desc';
         $offset = ($page - 1) * $perPage;
 
+        $allowedStatuses = ['pending', 'confirmed', 'completed', 'cancelled', ''];
+        if (!in_array($status, $allowedStatuses, true)) {
+            $status = '';
+        }
+
         $repo = $this->repository();
-        $total = $repo->countAll($q);
+        $total = $repo->countAll($q, $status);
         $totalPages = max(1, (int) ceil($total / $perPage));
 
         if ($page > $totalPages) {
@@ -27,9 +33,9 @@ class AppointmentController
             $offset = ($page - 1) * $perPage;
         }
 
-        $appointments = $repo->getPaginated($q, $perPage, $offset, $sort, $direction);
+        $appointments = $repo->getPaginated($q, $perPage, $offset, $sort, $direction, $status);
 
-        view('appointments/index', compact('appointments', 'q', 'page', 'perPage', 'total', 'totalPages', 'sort', 'direction'));
+        view('appointments/index', compact('appointments', 'q', 'page', 'perPage', 'total', 'totalPages', 'sort', 'direction', 'status'));
     }
 
     public function create(): void
@@ -41,6 +47,7 @@ class AppointmentController
 
     public function store(): void
     {
+        verify_csrf();
         $data = $this->validate($_POST);
         $errors = $data['errors'];
         $old = $data['values'];
@@ -58,7 +65,7 @@ class AppointmentController
             $errors['appointment_code'] = 'Ma lich hen nay da ton tai.';
             view('appointments/create', compact('errors', 'old'));
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            log_error('Appointment error', $e);
             http_response_code(500);
             view('errors/500');
         }
@@ -82,6 +89,7 @@ class AppointmentController
 
     public function update(): void
     {
+        verify_csrf();
         $id = (int) ($_POST['id'] ?? 0);
         $data = $this->validate($_POST);
         $errors = $data['errors'];
@@ -101,7 +109,7 @@ class AppointmentController
             $errors['appointment_code'] = 'Ma lich hen nay da ton tai.';
             view('appointments/edit', compact('errors', 'old'));
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            log_error('Appointment error', $e);
             http_response_code(500);
             view('errors/500');
         }
@@ -109,6 +117,7 @@ class AppointmentController
 
     public function delete(): void
     {
+        verify_csrf();
         $id = (int) ($_POST['id'] ?? 0);
 
         if ($id <= 0) {
@@ -120,7 +129,7 @@ class AppointmentController
             $this->repository()->delete($id);
             flash_set('success', 'Lich hen da duoc xoa thanh cong.');
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            log_error('Appointment error', $e);
             flash_set('error', 'Co loi xay ra khi xoa lich hen.');
         }
         redirect('/appointments');
