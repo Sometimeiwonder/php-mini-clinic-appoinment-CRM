@@ -1,0 +1,70 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #1e293b; }
+.navbar { background: #0f172a; padding: 14px 32px; display: flex; gap: 24px; align-items: center; }
+.navbar strong { color: #38bdf8; font-size: 17px; }
+.navbar a { color: #e2e8f0; text-decoration: none; font-weight: 500; font-size: 14px; }
+.navbar a:hover { color: #38bdf8; }
+.container { max-width: 1100px; margin: 28px auto; padding: 0 20px; }
+h1 { margin-top: 0; font-size: 26px; }
+
+.card, .toolbar { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.toolbar { display: flex; gap: 12px; align-items: center; }
+input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; font-family: inherit; }
+textarea { min-height: 80px; resize: vertical; }
+.form-card { max-width: 600px; display: grid; gap: 10px; }
+label { font-weight: 600; margin-top: 6px; font-size: 14px; }
+
+table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+th, td { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; text-align: left; font-size: 14px; }
+th { background: #f8fafc; font-weight: 600; color: #475569; }
+.table-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 14px; color: #64748b; }
+
+.btn, button { display: inline-block; padding: 9px 16px; border-radius: 8px; border: 0; text-decoration: none; cursor: pointer; font-size: 14px; font-weight: 500; }
+.primary { background: #2563eb; color: white; }
+.primary:hover { background: #1d4ed8; }
+.btn { background: #f1f5f9; color: #1e293b; }
+.btn:hover { background: #e2e8f0; }
+.danger { background: #dc2626; color: white; }
+.danger:hover { background: #b91c1c; }
+
+.alert.success { background: #dcfce7; color: #166534; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; }
+.alert.error { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; }
+.error { color: #dc2626; margin: 2px 0 6px; font-size: 13px; }
+
+.badge { background: #e0f2fe; color: #075985; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.status-pending { background: #fef3c7; color: #92400e; }
+.status-confirmed { background: #d1fae5; color: #065f46; }
+.status-completed { background: #dbeafe; color: #1e40af; }
+.status-cancelled { background: #fee2e2; color: #991b1b; }
+
+.inline { display: inline; }
+.link { background: none; padding: 0; color: #2563eb; }
+.danger { color: #dc2626; }
+
+.pagination { display: flex; gap: 6px; align-items: center; }
+.page-link { display: inline-block; padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 6px; text-decoration: none; color: #1e293b; font-size: 13px; background: white; }
+.page-link:hover { background: #f1f5f9; }
+.page-link.active { background: #2563eb; color: white; border-color: #2563eb; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center; }
+.stat-card.blue { border-top: 3px solid #3b82f6; }
+.stat-card.yellow { border-top: 3px solid #f59e0b; }
+.stat-card.green { border-top: 3px solid #10b981; }
+.stat-card.purple { border-top: 3px solid #8b5cf6; }
+.stat-label { font-size: 13px; color: #64748b; font-weight: 500; }
+.stat-number { font-size: 32px; font-weight: 700; margin-top: 4px; }
+.stat-card.blue .stat-number { color: #2563eb; }
+.stat-card.yellow .stat-number { color: #d97706; }
+.stat-card.green .stat-number { color: #059669; }
+.stat-card.purple .stat-number { color: #7c3aed; }
+
+.info-box { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; min-width: 260px; }
+.info-box h3 { margin-top: 0; font-size: 16px; }
+
+.error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 20px; margin: 16px 0; }
+
+.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
+.dashboard-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; }
+.dashboard-card h3 { margin-top: 0; color: #0f172a; }
+.dashboard-card a { color: #2563eb; text-decoration: none; }
